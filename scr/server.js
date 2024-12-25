@@ -20,6 +20,7 @@ const pool = new Pool({
   },
 });
 
+
 // Teste de conexão
 pool.connect((err) => {
   if (err) {
@@ -29,16 +30,13 @@ pool.connect((err) => {
   console.log("Conectado ao banco de dados.");
 });
 
-// Rota para servir o arquivo HTML
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
 // Rota para obter clipes aleatórios
 app.get("/clips", async (req, res) => {
   try {
+    console.log("Buscando clipes aleatórios...");
     const query = "SELECT * FROM clips ORDER BY RANDOM() LIMIT 2";
     const { rows } = await pool.query(query);
+    console.log("Clipes encontrados:", rows);
     res.json(rows);
   } catch (err) {
     console.error("Erro ao buscar clipes:", err);
