@@ -333,6 +333,7 @@ body {
           clips.forEach(clip => {
             const clipElement = document.createElement("div");
             clipElement.classList.add("clip");
+            console.log(clip.id)
 
             clipElement.innerHTML = `
               <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=localhost" frameborder="0" allowfullscreen></iframe>
