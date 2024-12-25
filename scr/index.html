@@ -324,7 +324,7 @@ body {
 
   <script>
     function loadClips() {
-      fetch("http://localhost:3000/clips")
+      fetch("https://valorant-vault.vercel.app/clips")
         .then(response => response.json())
         .then(clips => {
           const container = document.getElementById("clips-container");
