@@ -325,7 +325,12 @@ body {
   <script>
     function loadClips() {
       fetch("https://valorant-vault.vercel.app/clips")
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
         .then(clips => {
           const container = document.getElementById("clips-container");
           container.innerHTML = "";
@@ -333,10 +338,10 @@ body {
           clips.forEach(clip => {
             const clipElement = document.createElement("div");
             clipElement.classList.add("clip");
-            console.log(clip.id)
+            console.log("Clip ID:", clip.id); // Log do ID do clip
 
             clipElement.innerHTML = `
-              <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=localhost" frameborder="0" allowfullscreen></iframe>
+              <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=${window.location.hostname}" frameborder="0" allowfullscreen></iframe>
               <div class="button-group">
                 <div class="primary-button">
                   <button class="valorant-button-container" onclick="vote(${clip.id})">
@@ -346,7 +351,7 @@ body {
                     </div>
                   </button>
                 </div>
-                
+              </div>
             `;
 
             container.appendChild(clipElement);
@@ -356,6 +361,7 @@ body {
     }
 
     function vote(clipId) {
+      console.log("Votando no clip ID:", clipId); // Log do ID do clip votado
       fetch("http://localhost:3000/vote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -370,6 +376,7 @@ body {
     }
 
     function report(clipId) {
+      console.log("Reportando o clip ID:", clipId); // Log do ID do clip reportado
       fetch("http://localhost:3000/report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -387,3 +394,4 @@ body {
     loadClips();
   </script>
 </body>
+</html>
