@@ -1,25 +1,27 @@
+// Importações necessárias
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
-const mysql = require("mysql");
+const { Pool } = require("pg"); // Usando pg para PostgreSQL
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Banco de Dados
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "clips_db",
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // URL do banco configurada no Neon
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-db.connect((err) => {
+// Teste de conexão
+pool.connect((err) => {
   if (err) {
     console.error("Erro ao conectar ao banco de dados:", err);
     process.exit(1);
@@ -33,49 +35,55 @@ app.get("/", (req, res) => {
 });
 
 // Rota para obter clipes aleatórios
-app.get("/clips", (req, res) => {
-  const query = "SELECT * FROM clips ORDER BY RAND() LIMIT 2";
-  db.query(query, (err, results) => {
-    if (err) {
-      return res.status(500).json({ message: "Erro ao buscar clipes.", error: err });
-    }
-    res.json(results);
-  });
+app.get("/clips", async (req, res) => {
+  try {
+    const query = "SELECT * FROM clips ORDER BY RANDOM() LIMIT 2";
+    const { rows } = await pool.query(query);
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro ao buscar clipes:", err);
+    res.status(500).json({ message: "Erro ao buscar clipes.", error: err });
+  }
 });
 
 // Rota para registrar votos
-app.post("/vote", (req, res) => {
+app.post("/vote", async (req, res) => {
   const { clipId } = req.body;
   if (!clipId) {
     return res.status(400).json({ message: "ID do clipe é necessário." });
   }
 
-  const updateQuery = "UPDATE clips SET times_chosen = times_chosen + 1, times_competed = times_competed + 1 WHERE id = ?";
-  db.query(updateQuery, [clipId], (err) => {
-    if (err) {
-      return res.status(500).json({ message: "Erro ao registrar voto.", error: err });
-    }
+  try {
+    const updateQuery = "UPDATE clips SET times_chosen = times_chosen + 1, times_competed = times_competed + 1 WHERE id = $1";
+    await pool.query(updateQuery, [clipId]);
     res.json({ message: "Voto registrado com sucesso!" });
-  });
+  } catch (err) {
+    console.error("Erro ao registrar voto:", err);
+    res.status(500).json({ message: "Erro ao registrar voto.", error: err });
+  }
 });
 
 // Rota para registrar denúncias
-app.post("/report", (req, res) => {
+app.post("/report", async (req, res) => {
   const { clipId } = req.body;
   if (!clipId) {
     return res.status(400).json({ message: "ID do clipe é necessário." });
   }
 
-  const reportQuery = "UPDATE clips SET reports = reports + 1 WHERE id = ?";
-  db.query(reportQuery, [clipId], (err) => {
-    if (err) {
-      return res.status(500).json({ message: "Erro ao registrar denúncia.", error: err });
-    }
+  try {
+    const reportQuery = "UPDATE clips SET reports = reports + 1 WHERE id = $1";
+    await pool.query(reportQuery, [clipId]);
     res.json({ message: "Denúncia registrada com sucesso!" });
-  });
+  } catch (err) {
+    console.error("Erro ao registrar denúncia:", err);
+    res.status(500).json({ message: "Erro ao registrar denúncia.", error: err });
+  }
 });
 
 // Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+// Exportar o app para o Vercel
+module.exports = app;
