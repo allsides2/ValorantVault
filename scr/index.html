@@ -324,41 +324,41 @@ body {
 
   <script>
     function loadClips() {
-      fetch("https://valorant-vault.vercel.app/clips")
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-          }
-          return response.json();
-        })
-        .then(clips => {
-          const container = document.getElementById("clips-container");
-          container.innerHTML = "";
+  // Mock de dados para teste
+  const mockClips = [
+    { id: 1, url: 'EndearingHungryAubergineArgieB8-LdwNJEuhBRPwgpSn' },
+    { id: 2, url: 'EndearingHungryAubergineArgieB8-LdwNJEuhBRPwgpSn' },
+    { id: 3, url: 'EndearingHungryAubergineArgieB8-LdwNJEuhBRPwgpSn' }
+  ];
 
-          clips.forEach(clip => {
-            const clipElement = document.createElement("div");
-            clipElement.classList.add("clip");
-            console.log("Clip ID:", clip.id); // Log do ID do clip
+  // Simulando um atraso como se fosse uma requisição de rede
+  setTimeout(() => {
+    const container = document.getElementById("clips-container");
+    container.innerHTML = "";
 
-            clipElement.innerHTML = `
-              <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=${window.location.hostname}" frameborder="0" allowfullscreen></iframe>
-              <div class="button-group">
-                <div class="primary-button">
-                  <button class="valorant-button-container" onclick="vote(${clip.id})">
-                    <div class="valorant-button-line"></div>
-                    <div class="text-wrapper">
-                      <span>Votar</span>
-                    </div>
-                  </button>
-                </div>
+    mockClips.forEach(clip => {
+      const clipElement = document.createElement("div");
+      clipElement.classList.add("clip");
+      console.log("Clip ID:", clip.id); // Log do ID do clip
+
+      clipElement.innerHTML = `
+        <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=${window.location.hostname}" frameborder="0" allowfullscreen></iframe>
+        <div class="button-group">
+          <div class="primary-button">
+            <button class="valorant-button-container" onclick="vote(${clip.id})">
+              <div class="valorant-button-line"></div>
+              <div class="text-wrapper">
+                <span>Votar</span>
               </div>
-            `;
+            </button>
+          </div>
+        </div>
+      `;
 
-            container.appendChild(clipElement);
-          });
-        })
-        .catch(err => console.error("Erro ao carregar clipes:", err));
-    }
+      container.appendChild(clipElement);
+    });
+  }, 1000); // Simulando um atraso de 1 segundo
+}
 
     function vote(clipId) {
       console.log("Votando no clip ID:", clipId); // Log do ID do clip votado
