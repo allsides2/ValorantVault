@@ -1,0 +1,177 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #1c1c1c;
+  color: #fff;
+}
+
+.main-menu {
+  background: #2e2e2e;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  width: 55px;
+  overflow: hidden;
+  transition: width 0.2s linear;
+  box-shadow: 1px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.main-menu:hover {
+  width: 250px;
+}
+
+.main-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-menu li {
+  position: relative;
+  width: 250px;
+}
+
+.main-menu li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: #8a8a8a;
+  padding: 15px;
+  border-top: 1px solid #444;
+  transition: all 0.2s ease-in-out;
+}
+
+.main-menu li a:hover {
+  background-color: #ff4655;
+  color: white;
+}
+
+.main-menu .nav-icon {
+  display: inline-block;
+  width: 55px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.main-menu .nav-text {
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.main-menu:hover .nav-text {
+  opacity: 1;
+}
+
+
+/* CSGO TO VALORANT SENSITIVITY CONVERTER */
+/* POWERED BY VALORANT UK */
+
+body {
+  background-image: url('https://i.imgur.com/3POnLJP.jpg');
+  color: #fff;
+}
+.left {
+  text-align:center;
+  height: 285px;
+  background-color: #282828f0;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  margin-left: 15px;
+  margin-right: 15px;
+  border-top-left-radius: 20%;
+  position: relative;
+}
+.right {
+  text-align: center;
+  height: 285px;
+  background-color: #fd4555d4;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.42);
+  margin-left: 15px;
+  margin-right: 15px;
+  border-bottom-right-radius: 20%;
+}
+.inner-left{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.info{
+  display: inline-block; 
+  width: 500px;
+  text-shadow: 0px 2px 2px rgba(0,0,0,0.94);
+}
+.inner-right{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 35%;
+  margin: auto;
+}
+.header {
+  padding: 8%;
+  text-align: center;
+}
+.footer {
+  height: 25px;
+}
+.btn-info {
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #e43d4e85;
+  border-color: #e43d4e;
+  font-size: 14px;
+  font-weight: 600;
+}
+.btn-info:hover {
+color: #fff;
+background-color: #e43d4e;
+border-color: #e43d4e;
+}
+.discord {
+  padding-top: 15%;
+}
+.main-btn{
+  margin-top:15px;
+}
+#output {
+    font-weight: 600;
+    font-size: 14px;
+}
+hr.new1 {
+  border-top: 4px solid #e43d4e;
+  max-width: 600px;
+}
+.widgetHeader-2Hz_Ln {
+background-color: #7b4a51 !important;
+}
+h2 {
+  font-weight:600;
+  text-shadow: 0px 2px 2px rgba(0,0,0,0.74);
+}
+h1 {
+  font-weight:800;
+  text-shadow: 0px 2px 2px rgba(0,0,0,0.74);
+}
+.top-text {
+  padding-bottom:5%;
+}
