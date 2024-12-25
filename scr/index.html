@@ -335,7 +335,7 @@ body {
             clipElement.classList.add("clip");
 
             clipElement.innerHTML = `
-              <iframe src="https://clips.twitch.tv/embed?clip=${clip.slug}&parent=localhost" frameborder="0" allowfullscreen></iframe>
+              <iframe src="https://clips.twitch.tv/embed?clip=${clip.url}&parent=localhost" frameborder="0" allowfullscreen></iframe>
               <div class="button-group">
                 <div class="primary-button">
                   <button class="valorant-button-container" onclick="vote(${clip.id})">
